@@ -46,6 +46,7 @@
 #include <string.h>
 #include <math.h>
 #include <time.h>
+#include <iostream>
 
 // The types 'intptr_t' and 'uintptr_t' are signed and unsigned integer types,
 //   respectively. They are guaranteed to be the same width as a pointer.
@@ -381,7 +382,7 @@ public:
     pointattributelist = (REAL *) NULL;
     pointmtrlist = (REAL *) NULL;
     pointmarkerlist = (int *) NULL;
-	point2tetlist = (int *) NULL;
+	  point2tetlist = (int *) NULL;
     pointparamlist = (pointparam *) NULL;
     numberofpoints = 0;
     numberofpointattributes = 0;
@@ -391,8 +392,8 @@ public:
     tetrahedronattributelist = (REAL *) NULL;
     tetrahedronvolumelist = (REAL *) NULL;
     neighborlist = (int *) NULL;
-	tet2facelist = (int *) NULL;
-	tet2edgelist = (int *) NULL;
+	  tet2facelist = (int *) NULL;
+	  tet2edgelist = (int *) NULL;
     numberoftetrahedra = 0;
     numberofcorners = 4; 
     numberoftetrahedronattributes = 0;
@@ -401,7 +402,7 @@ public:
     trifacemarkerlist = (int *) NULL;
     o2facelist = (int *) NULL;
     face2tetlist = (int *) NULL;
-	face2edgelist = (int *) NULL;
+	  face2edgelist = (int *) NULL;
     numberoftrifaces = 0; 
 
     edgelist = (int *) NULL;
@@ -464,7 +465,7 @@ public:
     if (pointmarkerlist != (int *) NULL) {
       delete [] pointmarkerlist;
     }
-	if (point2tetlist != (int *) NULL) {
+	  if (point2tetlist != (int *) NULL) {
       delete [] point2tetlist;
     }
     if (pointparamlist != (pointparam *) NULL) {
@@ -485,10 +486,10 @@ public:
     }
     if (tet2facelist != (int *) NULL) {
 	  delete [] tet2facelist;
-	}
-	if (tet2edgelist != (int *) NULL) {
-	  delete [] tet2edgelist;
-	}
+  	}
+  	if (tet2edgelist != (int *) NULL) {
+  	  delete [] tet2edgelist;
+  	}
 
     if (trifacelist != (int *) NULL) {
       delete [] trifacelist;
@@ -502,7 +503,7 @@ public:
     if (face2tetlist != (int *) NULL) {
       delete [] face2tetlist;
     }
-	if (face2edgelist != (int *) NULL) {
+	  if (face2edgelist != (int *) NULL) {
       delete [] face2edgelist;
     }
 
@@ -2348,7 +2349,8 @@ static selfint_event sevent;
 inline void terminatetetgen(tetgenmesh *m, int x)
 {
 #ifdef TETLIBRARY
-  throw x;
+  printf("exit code %i\n", x);
+  throw std::logic_error("abnormal exit from tetgen");
 #else
   switch (x) {
   case 1: // Out of memory.
