@@ -2847,6 +2847,8 @@ char* tetgenio::findnextfield(char *string)
 //                                                                           //
 ///////////////////////////////////////////////////////////////////////////////
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-parameter"
 char* tetgenio::readnumberline(char *string, FILE *infile, char *infilename)
 {
   char *result;
@@ -2868,7 +2870,7 @@ char* tetgenio::readnumberline(char *string, FILE *infile, char *infilename)
   } while ((*result == '#') || (*result == '\0'));
   return result;
 }
-
+#pragma GCC diagnostic pop
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                           //
 // findnextnumber()   Find the next field of a number string.                //
@@ -3199,7 +3201,10 @@ bool tetgenbehavior::parse_commandline(int argc, const char **argv)
             k++;
           }
           workstring[k] = '\0';
+          #pragma GCC diagnostic push
+          #pragma GCC diagnostic ignored "-Wrestrict"
           brio_threshold = (int) strtol(workstring, (char **) &workstring, 0);
+          #pragma GCC diagnostic pop
         }
         if ((argv[i][j + 1] == '/') || (argv[i][j + 1] == ',')) {
           j++;
@@ -3228,7 +3233,10 @@ bool tetgenbehavior::parse_commandline(int argc, const char **argv)
               k++;
             }
             workstring[k] = '\0';
+            #pragma GCC diagnostic push
+            #pragma GCC diagnostic ignored "-Wrestrict"
             hilbert_limit = (int) strtol(workstring, (char **) &workstring, 0);
+            #pragma GCC diagnostic pop
           }
         }
         if ((argv[i][j + 1] == '/') || (argv[i][j + 1] == ',')) {
@@ -15609,6 +15617,8 @@ enum tetgenmesh::interresult
 //                                                                           //
 ///////////////////////////////////////////////////////////////////////////////
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-parameter"
 enum tetgenmesh::interresult tetgenmesh::scoutsegment(point startpt,point endpt,
   face *sedge, triface* searchtet, point* refpt, arraypool* intfacelist)
 {
@@ -15797,6 +15807,7 @@ enum tetgenmesh::interresult tetgenmesh::scoutsegment(point startpt,point endpt,
   *searchtet = reftet;
   return dir;
 }
+#pragma GCC diagnostic pop
 
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                           //
@@ -19602,7 +19613,10 @@ int tetgenmesh::add_steinerpt_in_segment(face* misseg, int searchlevel)
   enum interresult dir;
   REAL P[3], Q[3], tp, tq;
   REAL len, smlen = 0, split = 0, split_q = 0;
+  #pragma GCC diagnostic push
+  #pragma GCC diagnostic ignored "-Wunused-but-set-variable"
   int success;
+  #pragma GCC diagnostic pop
   int i;
 
   startpt = sorg(*misseg);
@@ -25173,7 +25187,8 @@ int tetgenmesh::checkseg4split(face *chkseg, point& encpt, int& qflag)
 //   (3) Its length is larger than the mesh sizes at its endpoints.          //
 //                                                                           //
 ///////////////////////////////////////////////////////////////////////////////
-
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-parameter"
 int tetgenmesh::splitsegment(face *splitseg, point encpt, REAL rrp, 
                              point encpt1, point encpt2, int qflag, 
                              int chkencflag)
@@ -25296,7 +25311,7 @@ int tetgenmesh::splitsegment(face *splitseg, point encpt, REAL rrp,
     return 0;
   }
 }
-
+#pragma GCC diagnostic pop
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                           //
 // repairencsegs()    Repair encroached (sub) segments.                      //
@@ -28124,7 +28139,8 @@ int tetgenmesh::checkmesh(int topoflag)
 // checkshells()       Test the boundary mesh for topological consistency.   //
 //                                                                           //
 ///////////////////////////////////////////////////////////////////////////////
-
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wformat"
 int tetgenmesh::checkshells()
 {
   triface neightet, symtet;
@@ -28567,6 +28583,7 @@ int tetgenmesh::checksegments()
 
   return horrors;
 }
+#pragma GCC diagnostic pop
 
 ///////////////////////////////////////////////////////////////////////////////
 //                                                                           //

@@ -2345,9 +2345,16 @@ public:
 };
 
 static selfint_event sevent;
-
+#ifdef TETLIBRARY
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-parameter"
+#endif //TETLIBRARY
 inline void terminatetetgen(tetgenmesh *m, int x)
 {
+#ifdef TETLIBRARY
+#pragma GCC diagnostic pop
+#endif //TETLIBRARY
+
 #ifdef TETLIBRARY
   printf("exit code %i\n", x);
   throw std::logic_error("abnormal exit from tetgen");
