@@ -32107,7 +32107,7 @@ void tetgenmesh::outmesh2vtk(char* ofilename)
 //                                                                           //
 ///////////////////////////////////////////////////////////////////////////////
 
-void tetrahedralize(tetgenbehavior *b, tetgenio *in, tetgenio *out,
+tetgenmesh tetrahedralize(tetgenbehavior *b, tetgenio *in, tetgenio *out,
                     tetgenio *addin, tetgenio *bgmin)
 {
   tetgenmesh m;
@@ -32178,7 +32178,7 @@ void tetrahedralize(tetgenbehavior *b, tetgenio *in, tetgenio *out,
         m.outsubfaces(out);
       }
 
-      return;
+      return m;
     }
   }
 
@@ -32445,6 +32445,7 @@ void tetrahedralize(tetgenbehavior *b, tetgenio *in, tetgenio *out,
   if (!b->quiet) {
     m.statistics();
   }
+  return m;
 }
 
 #ifndef TETLIBRARY
@@ -32465,13 +32466,14 @@ int main(int argc, char *argv[])
 //                                                                           //
 ///////////////////////////////////////////////////////////////////////////////
 
-void tetrahedralize(const char *switches, tetgenio *in, tetgenio *out, 
+tetgenmesh tetrahedralize(const char *switches, tetgenio *in, tetgenio *out, 
                     tetgenio *addin, tetgenio *bgmin)
 
 #endif // not TETLIBRARY
 
 {
   tetgenbehavior b;
+  tetgenmesh m;
 
 #ifndef TETLIBRARY
 
@@ -32509,8 +32511,8 @@ void tetrahedralize(const char *switches, tetgenio *in, tetgenio *out,
   if (!b.parse_commandline(switches)) {
     terminatetetgen(NULL, 10);
   }
-  tetrahedralize(&b, in, out, addin, bgmin);
-
+  m=tetrahedralize(&b, in, out, addin, bgmin);
+  return m;
 #endif // not TETLIBRARY
 }
 
