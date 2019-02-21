@@ -2424,6 +2424,7 @@ bool tetgenio::load_tetmesh(const char* filebasename, int object)
     success = load_medit(filebasename, 1);
   } else if (object == (int) tetgenbehavior::NEU_MESH) {
     //success = load_neumesh(filebasename, 1);
+    success = false;
   } else {
     success = load_node(filebasename);
     if (success) {
@@ -32124,10 +32125,12 @@ void tetgenmesh::outmesh2vtk(char* ofilename)
 //                                                                           //
 ///////////////////////////////////////////////////////////////////////////////
 
-tetgenmesh tetrahedralize(tetgenbehavior *b, tetgenio *in, tetgenio *out,
+tetgenmesh* tetrahedralize(tetgenbehavior *b, tetgenio *in, tetgenio *out,
                     tetgenio *addin, tetgenio *bgmin)
 {
-  tetgenmesh m;
+  tetgenmesh* mptr;
+  mptr = new tetgenmesh;
+  tetgenmesh& m = *mptr;
   clock_t tv[12], ts[5]; // Timing informations (defined in time.h)
   REAL cps = (REAL) CLOCKS_PER_SEC;
 
@@ -32195,7 +32198,7 @@ tetgenmesh tetrahedralize(tetgenbehavior *b, tetgenio *in, tetgenio *out,
         m.outsubfaces(out);
       }
 
-      return m;
+      return mptr;
     }
   }
 
@@ -32462,7 +32465,7 @@ tetgenmesh tetrahedralize(tetgenbehavior *b, tetgenio *in, tetgenio *out,
   if (!b->quiet) {
     m.statistics();
   }
-  return m;
+  return mptr;
 }
 
 #ifndef TETLIBRARY
@@ -32483,14 +32486,14 @@ int main(int argc, char *argv[])
 //                                                                           //
 ///////////////////////////////////////////////////////////////////////////////
 
-tetgenmesh tetrahedralize(const char *switches, tetgenio *in, tetgenio *out, 
+tetgenmesh* tetrahedralize(const char *switches, tetgenio *in, tetgenio *out, 
                     tetgenio *addin, tetgenio *bgmin)
 
 #endif // not TETLIBRARY
 
 {
   tetgenbehavior b;
-  tetgenmesh m;
+  tetgenmesh* mptr;
 
 #ifndef TETLIBRARY
 
@@ -32528,8 +32531,9 @@ tetgenmesh tetrahedralize(const char *switches, tetgenio *in, tetgenio *out,
   if (!b.parse_commandline(switches)) {
     terminatetetgen(NULL, 10);
   }
-  m=tetrahedralize(&b, in, out, addin, bgmin);
-  return m;
+  mptr=tetrahedralize(&b, in, out, addin, bgmin);
+  return mptr;
+  // return;
 #endif // not TETLIBRARY
 }
 

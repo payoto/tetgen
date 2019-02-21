@@ -2299,11 +2299,11 @@ public:
 //                                                                           //
 ///////////////////////////////////////////////////////////////////////////////
 
-tetgenmesh tetrahedralize(tetgenbehavior *b, tetgenio *in, tetgenio *out, 
+tetgenmesh* tetrahedralize(tetgenbehavior *b, tetgenio *in, tetgenio *out, 
                     tetgenio *addin = NULL, tetgenio *bgmin = NULL);
 
 #ifdef TETLIBRARY
-tetgenmesh tetrahedralize(const char *switches, tetgenio *in, tetgenio *out,
+tetgenmesh* tetrahedralize(const char *switches, tetgenio *in, tetgenio *out,
                     tetgenio *addin = NULL, tetgenio *bgmin = NULL);
 #endif // #ifdef TETLIBRARY
 
