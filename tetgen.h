@@ -39,7 +39,7 @@
 
 #define INPUTLINESIZE 2048
 
-// TetGen only uses the C standard library.
+// TetGen only uses the C standard library - not anymore.
 
 #include <stdio.h>
 #include <stdlib.h>
